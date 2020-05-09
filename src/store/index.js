@@ -11,26 +11,28 @@ export default new Vuex.Store({
       ["-", "-", "-"]
     ],
     players: ["X", "O"],
-    currentPlayer: 0
+    _currentPlayer: 0
+  },
+
+  getters: {
+    currentPlayer: state => state.players[state._currentPlayer]
   },
 
   mutations: {
     setSquare(state, [x, y]) {
       console.log("setSquare");
-      state.board[y][x] = state.players[state.currentPlayer];
+      state.board[y][x] = state.players[state._currentPlayer];
       console.log(state.board);
     },
 
     nextPlayer(state) {
-      console.log("nextPlayer");
-      state.currentPlayer = state.currentPlayer === 0 ? 1 : 0;
-      console.log(state.currentPlayer);
+      state._currentPlayer = state._currentPlayer === 0 ? 1 : 0;
+      console.log(state._currentPlayer);
     }
   },
 
   actions: {
     play({ commit }, coordinates) {
-      console.log(29, coordinates);
       commit("setSquare", coordinates);
       commit("nextPlayer");
       // check winner
