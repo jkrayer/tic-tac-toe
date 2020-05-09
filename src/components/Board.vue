@@ -6,7 +6,7 @@
         :key="y + x"
         @click="play([x, y])"
         type="button"
-        :disabled="char !== '-'"
+        :disabled="char !== '-' || winner"
       >
         {{ char }}
       </button>
@@ -18,12 +18,9 @@
 import { mapState } from "vuex";
 
 export default {
-  computed: mapState({
-    board: state => {
-      console.log("map", state);
-      return state.board;
-    }
-  }),
+  computed: {
+    ...mapState(["board", "winner"])
+  },
 
   methods: {
     play(coordinates) {

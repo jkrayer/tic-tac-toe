@@ -2,12 +2,13 @@
   <div class="game">
     <board />
     <p>{{ currentPlayer }} Goes!</p>
+    <p>Winner? {{ winner }}</p>
     <!-- Winner Overlay Play again button -->
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import Board from "./Board.vue";
 
 export default {
@@ -18,7 +19,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["currentPlayer"])
+    ...mapGetters(["currentPlayer"]),
+    ...mapState(["winner"])
   }
 };
 </script>
