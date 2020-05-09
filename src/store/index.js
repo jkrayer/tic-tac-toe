@@ -3,18 +3,20 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+const defaultState = () => ({
+  board: [
+    ["-", "-", "-"],
+    ["-", "-", "-"],
+    ["-", "-", "-"]
+  ],
+  players: ["X", "O"],
+  winner: null,
+  _turn: 0,
+  _currentPlayer: 0
+});
+
 export default new Vuex.Store({
-  state: {
-    board: [
-      ["-", "-", "-"],
-      ["-", "-", "-"],
-      ["-", "-", "-"]
-    ],
-    players: ["X", "O"],
-    winner: null,
-    _turn: 0,
-    _currentPlayer: 0
-  },
+  state: defaultState(),
 
   getters: {
     currentPlayer(state) {
@@ -43,6 +45,10 @@ export default new Vuex.Store({
 
     setWinner(state, winner) {
       state.winner = winner;
+    },
+
+    reset(state) {
+      Object.assign(state, defaultState());
     }
   },
 
@@ -60,6 +66,10 @@ export default new Vuex.Store({
         }
         return commit("setWinner", winner);
       });
+    },
+
+    reset({ commit }) {
+      commit("reset");
     },
 
     getWinner({ getters, state }, [x, y]) {
