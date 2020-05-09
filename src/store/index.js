@@ -74,21 +74,23 @@ export default new Vuex.Store({
         return `${player} wins column ${x + 1}`;
       }
 
-      const li = board.length - 1;
-      const { DL, DR } = board.reduce(
-        (acc, row, ind) => {
-          acc.DL.push([ind, ind]);
-          acc.DR.push([li - ind, ind]);
-          return acc;
-        },
-        { DL: [], DR: [] }
-      );
-
-      if (DL.every(([x, y]) => board[y][x] === player)) {
+      // diagonal left
+      let dl = true;
+      for (let xy = 0; xy < board.length; xy++) {
+        dl = board[xy][xy] === player;
+        if (dl === false) break;
+      }
+      if (dl === true) {
         return `${player} wins diagonal left`;
       }
 
-      if (DR.every(([x, y]) => board[y][x] === player)) {
+      //diagonal right
+      let dr = true;
+      for (let by = 0, bx = board.length - 1; by < board.length; by++, bx--) {
+        dr = board[by][bx] === player;
+        if (dr === false) break;
+      }
+      if (dr === true) {
         return `${player} wins diagonal right`;
       }
 
