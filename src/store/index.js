@@ -85,23 +85,27 @@ export default new Vuex.Store({
       }
 
       // diagonal left
-      let dl = true;
-      for (let xy = 0; xy < board.length; xy++) {
-        dl = board[xy][xy] === player;
-        if (dl === false) break;
-      }
-      if (dl === true) {
-        return `${player} wins diagonal left`;
+      if (x === y) {
+        let dl = true;
+        for (let xy = 0; xy < board.length; xy++) {
+          dl = board[xy][xy] === player;
+          if (dl === false) break;
+        }
+        if (dl === true) {
+          return `${player} wins diagonal left`;
+        }
       }
 
       //diagonal right
-      let dr = true;
-      for (let by = 0, bx = board.length - 1; by < board.length; by++, bx--) {
-        dr = board[by][bx] === player;
-        if (dr === false) break;
-      }
-      if (dr === true) {
-        return `${player} wins diagonal right`;
+      if (x + y === board.length - 1) {
+        let dr = true;
+        for (let by = 0, bx = board.length - 1; by < board.length; by++, bx--) {
+          dr = board[by][bx] === player;
+          if (dr === false) break;
+        }
+        if (dr === true) {
+          return `${player} wins diagonal right`;
+        }
       }
 
       return false;
