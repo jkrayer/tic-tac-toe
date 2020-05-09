@@ -6,6 +6,7 @@
         :key="y + x"
         @click="play([x, y])"
         type="button"
+        :disabled="char !== '-'"
       >
         {{ char }}
       </button>

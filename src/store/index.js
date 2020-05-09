@@ -20,9 +20,13 @@ export default new Vuex.Store({
 
   mutations: {
     setSquare(state, [x, y]) {
-      console.log("setSquare");
-      state.board[y][x] = state.players[state._currentPlayer];
-      console.log(state.board);
+      state.board = state.board.map((row, bY) => {
+        return row.map((cell, bX) => {
+          return bY === y && bX === x
+            ? state.players[state._currentPlayer]
+            : cell;
+        });
+      });
     },
 
     nextPlayer(state) {
