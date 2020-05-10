@@ -25,7 +25,6 @@ export default {
 
   methods: {
     play(coordinates) {
-      console.log(32, "play");
       this.$store.dispatch("play", coordinates);
     }
   }
@@ -36,13 +35,11 @@ export default {
 .board {
   display: flex;
   flex-wrap: wrap;
-  width: 82vw;
   height: 82vw;
-  // max-width: ;
-  margin-right: auto;
-  margin-left: auto;
+  max-height: 400px;
   background-color: #222;
 }
+
 .cell {
   box-sizing: border-box;
   width: 33.33333%;

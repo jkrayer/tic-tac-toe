@@ -32,9 +32,6 @@ export default {
   padding: 0;
   border: none;
   font-size: 1rem;
-  text-align: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
 
   > div {
     display: inline-block;
@@ -44,7 +41,7 @@ export default {
 
 .X {
   > div {
-    height: 7px;
+    height: 0.5em;
     background-color: red;
   }
 
@@ -59,9 +56,10 @@ export default {
 
 .O {
   > div {
-    width: 93px;
-    height: 93px;
-    border: solid 7px green;
+    box-sizing: border-box;
+    width: 90%;
+    height: 90%;
+    border: solid 0.5em green;
     border-radius: 50%;
   }
 

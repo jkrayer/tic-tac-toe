@@ -11,12 +11,15 @@ const defaultState = () => ({
   ],
   players: ["X", "O"],
   winner: null,
-  _turn: 0,
+  turn: 0,
   _currentPlayer: 0
 });
 
 export default new Vuex.Store({
-  state: defaultState(),
+  state: {
+    wins: [0, 0],
+    ...defaultState()
+  },
 
   getters: {
     currentPlayer(state) {
@@ -40,11 +43,18 @@ export default new Vuex.Store({
     },
 
     incrementTurn(state) {
-      state._turn = state._turn + 1;
+      state.turn = state.turn + 1;
     },
 
     setWinner(state, winner) {
       state.winner = winner;
+    },
+
+    tallyWin(state) {
+      console.log("tally");
+      state.wins = state.wins.map((win, i) =>
+        i === state._currentPlayer ? win + 1 : win
+      );
     },
 
     reset(state) {
@@ -59,11 +69,12 @@ export default new Vuex.Store({
 
       dispatch("getWinner", coordinates).then(winner => {
         if (winner === false) {
-          if (state._turn < 9) {
+          if (state.turn < 9) {
             return commit("nextPlayer");
           }
           return commit("setWinner", false);
         }
+        commit("tallyWin");
         return commit("setWinner", winner);
       });
     },

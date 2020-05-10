@@ -1,14 +1,19 @@
 <template>
   <div id="app">
-    <h1>Tic-Tac-Toe</h1>
+    <h1 class="title">Tic-Tac-Toe</h1>
     <board />
-    <p>{{ currentPlayer }} Goes!</p>
-    <p>
-      Winner? {{ winner }}
-      <button v-if="winner !== null" @click="handleClick" type="button">
-        Play Again
-      </button>
-    </p>
+    <div class="row">
+      <div class="col">
+        <p><span class="b">Wins</span> X {{ wins[0] }} : O {{ wins[1] }}</p>
+      </div>
+      <div class="col">
+        <p class="text-right">{{ turnInstruction }}</p>
+      </div>
+    </div>
+    Winner? {{ winner }}
+    <button v-if="winner !== null" @click="handleClick" type="button">
+      Play Again
+    </button>
     <!-- Winner Overlay Play again button -->
   </div>
 </template>
@@ -26,7 +31,13 @@ export default {
 
   computed: {
     ...mapGetters(["currentPlayer"]),
-    ...mapState(["winner"])
+    ...mapState(["winner", "turn", "wins"]),
+
+    turnInstruction() {
+      return this.turn === 0
+        ? "X takes the first turn."
+        : `${this.currentPlayer}'s Turn!`;
+    }
   },
 
   methods: {
@@ -37,13 +48,41 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
 #app {
+  position: relative;
+  width: 82vw;
+  max-width: 400px;
+  margin: 60px auto 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #222;
-  margin-top: 60px;
+}
+
+.title {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  flex-grow: 1;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.b {
+  font-weight: 700;
 }
 </style>
