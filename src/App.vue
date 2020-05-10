@@ -13,8 +13,9 @@
         <p class="text-right">{{ turnInstruction }}</p>
       </div>
     </div>
+    <!-- TODO: Make this a modal -->
     <div v-if="winner !== null">
-      {{ winner }}
+      {{ winner ? winner[0] : "" }}
       <button v-if="winner !== null" @click="handleClick" type="button">
         Play Again
       </button>

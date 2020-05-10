@@ -9,6 +9,7 @@
         />
       </div>
     </template>
+    <div class="strike" :class="winner ? winner[1] : ''" />
   </div>
 </template>
 
@@ -33,6 +34,7 @@ export default {
 
 <style lang="scss" scoped>
 .board {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   height: 82vw;
@@ -45,5 +47,59 @@ export default {
   width: 33.33333%;
   height: 33.33333%;
   padding: 2px;
+}
+
+// TODO Add Strike - A Line through the winning row
+.strike {
+  position: absolute;
+  background-color: #222;
+}
+
+.row-1,
+.row-2,
+.row-3 {
+  width: 95%;
+  height: 7px;
+  left: 2.5%;
+}
+.row-1 {
+  top: 16%;
+}
+.row-2 {
+  top: 49%;
+}
+.row-3 {
+  top: 82%;
+}
+
+.col-1,
+.col-2,
+.col-3 {
+  width: 7px;
+  height: 95%;
+  top: 2.5%;
+}
+.col-1 {
+  left: 16%;
+}
+.col-2 {
+  left: 49%;
+}
+.col-3 {
+  left: 82%;
+}
+
+.dia-1,
+.dia-2 {
+  left: -5%;
+  top: 49%;
+  width: 110%;
+  height: 7px;
+}
+.dia-1 {
+  transform: rotate(45deg);
+}
+.dia-2 {
+  transform: rotate(-45deg);
 }
 </style>

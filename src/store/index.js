@@ -88,11 +88,13 @@ export default new Vuex.Store({
       const player = getters["currentPlayer"];
 
       if (board[y].every(n => n === player)) {
-        return `${player} wins row ${y + 1}`;
+        const row = y + 1;
+        return [`${player} wins row ${row}`, `row-${row}`];
       }
 
       if (board.every(row => row[x] === player)) {
-        return `${player} wins column ${x + 1}`;
+        const col = x + 1;
+        return [`${player} wins column ${col}`, `col-${col}`];
       }
 
       // diagonal left
@@ -103,7 +105,7 @@ export default new Vuex.Store({
           if (dl === false) break;
         }
         if (dl === true) {
-          return `${player} wins diagonal left`;
+          return [`${player} wins diagonal left`, "dia-1"];
         }
       }
 
@@ -115,7 +117,7 @@ export default new Vuex.Store({
           if (dr === false) break;
         }
         if (dr === true) {
-          return `${player} wins diagonal right`;
+          return [`${player} wins diagonal right`, "dia-2"];
         }
       }
 
