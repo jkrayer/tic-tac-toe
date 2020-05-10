@@ -4,17 +4,21 @@
     <board />
     <div class="row">
       <div class="col">
-        <p><span class="b">Wins</span> X {{ wins[0] }} : O {{ wins[1] }}</p>
+        <p>
+          <span class="b">Wins:</span> X {{ wins[0] }}
+          <span class="super">|</span> O {{ wins[1] }}
+        </p>
       </div>
       <div class="col">
         <p class="text-right">{{ turnInstruction }}</p>
       </div>
     </div>
-    Winner? {{ winner }}
-    <button v-if="winner !== null" @click="handleClick" type="button">
-      Play Again
-    </button>
-    <!-- Winner Overlay Play again button -->
+    <div v-if="winner !== null">
+      {{ winner }}
+      <button v-if="winner !== null" @click="handleClick" type="button">
+        Play Again
+      </button>
+    </div>
   </div>
 </template>
 
@@ -84,5 +88,11 @@ body {
 
 .b {
   font-weight: 700;
+}
+
+.super {
+  position: relative;
+  top: -2px;
+  display: inline-block;
 }
 </style>
