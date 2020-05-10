@@ -4,11 +4,9 @@
       <div class="cell" v-for="(char, x) in row" :key="[y, x].join('')">
         <btn
           @click="play([x, y])"
-          :disabled="char !== '-' || winner"
+          :disabled="char !== '' || winner"
           :symbol="char"
-        >
-          {{ char }}
-        </btn>
+        />
       </div>
     </template>
   </div>

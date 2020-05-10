@@ -1,8 +1,8 @@
-<template functional>
+<template lang="html">
   <button
     type="button"
     class="button"
-    :class="props.symbol"
+    :class="symbol"
     v-bind="$attrs"
     v-on="$listeners"
   >
