@@ -68,11 +68,11 @@ export default new Vuex.Store({
       commit("incrementTurn");
 
       dispatch("getWinner", coordinates).then(winner => {
-        if (winner === false) {
+        if (winner[0] === false) {
           if (state.turn < 9) {
             return commit("nextPlayer");
           }
-          return commit("setWinner", false);
+          return commit("setWinner", winner);
         }
         commit("tallyWin");
         return commit("setWinner", winner);
@@ -88,13 +88,12 @@ export default new Vuex.Store({
       const player = getters["currentPlayer"];
 
       if (board[y].every(n => n === player)) {
-        const row = y + 1;
-        return [`${player} wins row ${row}`, `row-${row}`];
+        return [true, player, "row", y + 1];
+        // return [`${player} wins row ${row}`, `row-${row}`];
       }
 
       if (board.every(row => row[x] === player)) {
-        const col = x + 1;
-        return [`${player} wins column ${col}`, `col-${col}`];
+        return [true, player, "col", x + 1];
       }
 
       // diagonal left
@@ -105,7 +104,7 @@ export default new Vuex.Store({
           if (dl === false) break;
         }
         if (dl === true) {
-          return [`${player} wins diagonal left`, "dia-1"];
+          return [true, player, "dia", 1];
         }
       }
 
@@ -117,11 +116,11 @@ export default new Vuex.Store({
           if (dr === false) break;
         }
         if (dr === true) {
-          return [`${player} wins diagonal right`, "dia-2"];
+          return [true, player, "dia", 2];
         }
       }
 
-      return false;
+      return [false, "", "", ""];
     }
   }
 });

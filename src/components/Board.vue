@@ -9,7 +9,7 @@
         />
       </div>
     </template>
-    <div class="strike" :class="winner ? winner[1] : ''" />
+    <div class="strike" :class="winningClass" />
   </div>
 </template>
 
@@ -21,7 +21,12 @@ export default {
   components: { Btn },
 
   computed: {
-    ...mapState(["board", "winner"])
+    ...mapState(["board", "winner"]),
+
+    winningClass() {
+      const { winner } = this;
+      return winner ? `${winner[2]}-${winner[3]}` : "";
+    }
   },
 
   methods: {
