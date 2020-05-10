@@ -23,7 +23,9 @@ export default {
 
     winMessage() {
       const { winner } = this;
-      return winner[0] === true ? `${winner[1]} wins!` : "X and 0 tie!";
+      return winner && winner[0] === true
+        ? `${winner[1]} wins!`
+        : "X and 0 tie!";
     }
   },
 

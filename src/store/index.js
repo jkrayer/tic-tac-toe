@@ -51,7 +51,6 @@ export default new Vuex.Store({
     },
 
     tallyWin(state) {
-      console.log("tally");
       state.wins = state.wins.map((win, i) =>
         i === state._currentPlayer ? win + 1 : win
       );
