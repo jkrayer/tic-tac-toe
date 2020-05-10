@@ -4,10 +4,7 @@
       <p class="main">
         {{ winMessage }}
       </p>
-      <p>
-        <span class="b">Wins:</span> X {{ wins[0] }}
-        <span class="super">|</span> O {{ wins[1] }}
-      </p>
+      <p>Wins: X {{ wins[0] }} <span class="super">|</span> O {{ wins[1] }}</p>
       <button @click="handleClick" type="button">
         Play Again
       </button>

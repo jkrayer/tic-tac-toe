@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="board">
     <template v-for="(row, y) in board">
-      <div class="cell" v-for="(char, x) in row" :key="[y, x].join('')">
+      <div v-for="(char, x) in row" :key="[y, x].join('')" class="cell">
         <btn
           @click="play([x, y])"
           :disabled="char !== '' || winner"
