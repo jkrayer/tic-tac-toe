@@ -88,7 +88,6 @@ export default new Vuex.Store({
 
       if (board[y].every(n => n === player)) {
         return [true, player, "row", y + 1];
-        // return [`${player} wins row ${row}`, `row-${row}`];
       }
 
       if (board.every(row => row[x] === player)) {

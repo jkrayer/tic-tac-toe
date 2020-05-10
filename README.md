@@ -1,5 +1,7 @@
 # tic-tac-toe
 
+Pass and play tic-tac-toe game built with Vue and Vuex.
+
 ## Project setup
 ```
 yarn install
