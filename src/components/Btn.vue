@@ -29,23 +29,34 @@ export default {
 .button {
   width: 100%;
   height: 100%;
+  padding: 0;
   border: none;
+  font-size: 1rem;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
   > div {
+    display: inline-block;
     width: 100%;
   }
 }
+
 .X {
   > div {
     height: 7px;
     background-color: red;
   }
+
   :first-child {
-    transform: rotate(45deg);
+    transform: rotate(45deg) translate(7px, 5px);
   }
+
   :last-child {
-    transform: rotate(-45deg);
+    transform: rotate(-45deg) translate(5px, -10px);
   }
 }
+
 .O {
   > div {
     width: 93px;
@@ -53,6 +64,7 @@ export default {
     border: solid 7px green;
     border-radius: 50%;
   }
+
   :last-child {
     display: none;
   }
