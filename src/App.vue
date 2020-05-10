@@ -1,16 +1,38 @@
 <template>
   <div id="app">
-    <game />
+    <h1>Tic-Tac-Toe</h1>
+    <board />
+    <p>{{ currentPlayer }} Goes!</p>
+    <p>
+      Winner? {{ winner }}
+      <button v-if="winner !== null" @click="handleClick" type="button">
+        Play Again
+      </button>
+    </p>
+    <!-- Winner Overlay Play again button -->
   </div>
 </template>
 
 <script>
-import Game from "./components/Game.vue";
+import { mapGetters, mapState } from "vuex";
+import Board from "./components/Board.vue";
 
 export default {
   name: "App",
+
   components: {
-    Game
+    Board
+  },
+
+  computed: {
+    ...mapGetters(["currentPlayer"]),
+    ...mapState(["winner"])
+  },
+
+  methods: {
+    handleClick() {
+      this.$store.dispatch("reset");
+    }
   }
 };
 </script>
@@ -21,7 +43,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #222;
   margin-top: 60px;
 }
 </style>

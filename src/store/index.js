@@ -5,9 +5,9 @@ Vue.use(Vuex);
 
 const defaultState = () => ({
   board: [
-    ["-", "-", "-"],
-    ["-", "-", "-"],
-    ["-", "-", "-"]
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""]
   ],
   players: ["X", "O"],
   winner: null,
