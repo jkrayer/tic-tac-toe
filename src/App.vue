@@ -3,21 +3,18 @@
     <h1 class="title">Tic-Tac-Toe</h1>
     <board />
     <p>{{ turnInstruction }}</p>
-    <modal />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
 import Board from "./components/Board.vue";
-import Modal from "./components/Modal.vue";
 
 export default {
   name: "App",
 
   components: {
-    Board,
-    Modal
+    Board
   },
 
   computed: {

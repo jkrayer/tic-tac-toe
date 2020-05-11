@@ -40,9 +40,9 @@ export default {
 <style lang="scss" scoped>
 .overlay {
   position: absolute;
-  top: 67px;
+  top: 0;
   right: 0;
-  bottom: 39px;
+  bottom: 0;
   left: 0;
   display: flex;
   justify-content: center;

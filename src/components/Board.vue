@@ -10,15 +10,20 @@
       </div>
     </template>
     <div class="strike" :class="winningClass" />
+    <modal />
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import Btn from "./Btn.vue";
+import Modal from "./Modal.vue";
 
 export default {
-  components: { Btn },
+  components: {
+    Btn,
+    Modal
+  },
 
   computed: {
     ...mapState(["board", "winner"]),
