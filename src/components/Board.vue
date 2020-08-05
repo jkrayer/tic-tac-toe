@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import Btn from "./Btn.vue";
-import Modal from "./Modal.vue";
+import { mapState } from 'vuex';
+import Btn from './Btn.vue';
+import Modal from './Modal.vue';
 
 export default {
   components: {
@@ -26,17 +26,17 @@ export default {
   },
 
   computed: {
-    ...mapState(["board", "winner"]),
+    ...mapState(['board', 'winner']),
 
     winningClass() {
       const { winner } = this;
-      return winner ? `${winner[2]}-${winner[3]}` : "";
+      return winner ? `${winner[2]}-${winner[3]}` : '';
     }
   },
 
   methods: {
     play(coordinates) {
-      this.$store.dispatch("play", coordinates);
+      this.$store.dispatch('play', coordinates);
     }
   }
 };

@@ -13,13 +13,13 @@
 
 <script>
 export default {
-  name: "Btn",
+  name: 'Btn',
 
   props: {
     symbol: {
       type: String,
-      default: "",
-      valiator: val => ["", "x", "o"].includes(val)
+      default: '',
+      valiator: val => ['', 'x', 'o'].includes(val)
     }
   }
 };

@@ -13,25 +13,25 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  name: "Modal",
+  name: 'Modal',
 
   computed: {
-    ...mapState(["winner", "wins"]),
+    ...mapState(['winner', 'wins']),
 
     winMessage() {
       const { winner } = this;
       return winner && winner[0] === true
         ? `${winner[1]} wins!`
-        : "X and 0 tie!";
+        : 'X and 0 tie!';
     }
   },
 
   methods: {
     handleClick() {
-      this.$store.dispatch("reset");
+      this.$store.dispatch('reset');
     }
   }
 };
