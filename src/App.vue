@@ -7,23 +7,22 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
-import Board from "./components/Board.vue";
+import { mapState } from 'vuex';
+import Board from './components/Board.vue';
 
 export default {
-  name: "App",
+  name: 'App',
 
   components: {
     Board
   },
 
   computed: {
-    ...mapGetters(["currentPlayer"]),
-    ...mapState(["turn"]),
+    ...mapState(['turn', 'currentPlayer']),
 
     turnInstruction() {
       return this.turn === 0
-        ? "X takes the first turn."
+        ? 'X takes the first turn.'
         : `${this.currentPlayer}'s Turn!`;
     }
   }
