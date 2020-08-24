@@ -5,12 +5,12 @@ Vue.use(Vuex);
 
 const defaultState = () => ({
   board: [
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', '']
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
   ],
-  winner: null,
-  turn: 0,
+  winner: false,
+  turn: 1,
   currentPlayer: 'X'
 });
 
@@ -24,6 +24,12 @@ export default new Vuex.Store({
     ...defaultState()
   },
 
+  getters: {
+    gameOver(state) {
+      return state.winner || state.turn > 9;
+    }
+  },
+
   mutations: {
     setSquare(state, [x, y]) {
       state.board = state.board.map((row, bY) => {
@@ -34,7 +40,6 @@ export default new Vuex.Store({
     },
 
     nextPlayer(state) {
-      console.log('play', state.players[state.currentPlayer]);
       state.currentPlayer = state.players[state.currentPlayer];
     },
 
@@ -42,14 +47,15 @@ export default new Vuex.Store({
       state.turn = state.turn + 1;
     },
 
-    setWinner(state, winner) {
-      state.winner = winner;
+    setWinner(state) {
+      state.winner = true;
     },
 
     tallyWin(state) {
       const { currentPlayer, wins } = state;
-      const tally = wins[currentPlayer] + 1;
-      state.wins = Object.asign(wins, { [currentPlayer]: tally });
+      state.wins = Object.assign(wins, {
+        [currentPlayer]: wins[currentPlayer] + 1
+      });
     },
 
     reset(state) {
@@ -58,20 +64,19 @@ export default new Vuex.Store({
   },
 
   actions: {
-    play({ commit, dispatch, state }, coordinates) {
+    play({ commit, dispatch, getters }, coordinates) {
       commit('setSquare', coordinates);
-      commit('incrementTurn');
 
-      dispatch('getWinner', coordinates).then(winner => {
-        if (winner[0] === false) {
-          if (state.turn < 9) {
-            console.log('play');
-            return commit('nextPlayer');
+      dispatch('getWinner').then(winner => {
+        if (winner) {
+          commit('tallyWin');
+          commit('setWinner');
+        } else {
+          if (!getters['gameOver']) {
+            commit('incrementTurn');
+            commit('nextPlayer');
           }
-          return commit('setWinner', winner);
         }
-        commit('tallyWin');
-        return commit('setWinner', winner);
       });
     },
 
@@ -79,43 +84,28 @@ export default new Vuex.Store({
       commit('reset');
     },
 
-    getWinner({ getters, state }, [x, y]) {
-      const { board } = state;
-      const player = getters['currentPlayer'];
-
-      if (board[y].every(n => n === player)) {
-        return [true, player, 'row', y + 1];
+    getWinner({ state }) {
+      // can't have a winner before the 5th turn
+      if (state.turn < 5) {
+        return false;
       }
 
-      if (board.every(row => row[x] === player)) {
-        return [true, player, 'col', x + 1];
-      }
+      const three = (x, y, z) => {
+        if (x === null || y === null || z === null) return false;
+        return x === y && y === z;
+      };
+      const [nw, n, ne, w, c, e, sw, s, se] = state.board.flat();
 
-      // diagonal left
-      if (x === y) {
-        let dl = true;
-        for (let xy = 0; xy < board.length; xy++) {
-          dl = board[xy][xy] === player;
-          if (dl === false) break;
-        }
-        if (dl === true) {
-          return [true, player, 'dia', 1];
-        }
-      }
-
-      //diagonal right
-      if (x + y === board.length - 1) {
-        let dr = true;
-        for (let by = 0, bx = board.length - 1; by < board.length; by++, bx--) {
-          dr = board[by][bx] === player;
-          if (dr === false) break;
-        }
-        if (dr === true) {
-          return [true, player, 'dia', 2];
-        }
-      }
-
-      return [false, '', '', ''];
+      return (
+        three(nw, n, ne) ||
+        three(w, c, e) ||
+        three(sw, s, se) ||
+        three(nw, w, sw) ||
+        three(n, c, s) ||
+        three(ne, e, se) ||
+        three(nw, c, se) ||
+        three(ne, c, sw)
+      );
     }
   }
 });

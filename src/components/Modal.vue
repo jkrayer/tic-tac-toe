@@ -1,10 +1,12 @@
 <template lang="html">
-  <div v-show="winner !== null" class="overlay">
+  <div v-if="gameOver" class="overlay">
     <div class="content">
       <p class="main">
         {{ winMessage }}
       </p>
-      <p>Wins: X {{ wins[0] }} <span class="super">|</span> O {{ wins[1] }}</p>
+      <p>
+        Wins: {{ winTally[0] }} <span class="super">|</span> {{ winTally[1] }}
+      </p>
       <button @click="handleClick" type="button">
         Play Again
       </button>
@@ -13,19 +15,22 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'Modal',
 
   computed: {
-    ...mapState(['winner', 'wins']),
+    ...mapGetters(['gameOver']),
+    ...mapState(['currentPlayer', 'winner', 'wins']),
 
     winMessage() {
-      const { winner } = this;
-      return winner && winner[0] === true
-        ? `${winner[1]} wins!`
-        : 'X and 0 tie!';
+      const { winner, currentPlayer } = this;
+      return winner === true ? `${currentPlayer} wins!` : 'X and 0 tie!';
+    },
+
+    winTally() {
+      return Object.entries(this.wins).map(a => a.join(' '));
     }
   },
 
