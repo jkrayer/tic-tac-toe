@@ -1,8 +1,12 @@
-<template lang="html">
+<template>
   <div class="board">
     <template v-for="(row, y) in board">
       <div v-for="(char, x) in row" :key="[y, x].join('')" class="cell">
-        <btn @click="play([x, y])" :disabled="gameOver" :symbol="char" />
+        <btn
+          @click="play([x, y])"
+          :disabled="gameOver || board[y][x]"
+          :symbol="char"
+        />
       </div>
     </template>
     <modal />
@@ -15,6 +19,8 @@ import Btn from './Btn.vue';
 import Modal from './Modal.vue';
 
 export default {
+  name: 'Board',
+
   components: {
     Btn,
     Modal
@@ -22,12 +28,7 @@ export default {
 
   computed: {
     ...mapGetters(['gameOver']),
-    ...mapState(['board', 'winner']),
-
-    winningClass() {
-      const { winner } = this;
-      return winner ? `${winner[2]}-${winner[3]}` : '';
-    }
+    ...mapState(['board'])
   },
 
   methods: {

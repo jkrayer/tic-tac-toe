@@ -1,10 +1,10 @@
-<template lang="html">
+<template>
   <div v-if="gameOver" class="overlay">
     <div class="content">
       <p class="main">
         {{ winMessage }}
       </p>
-      <p>
+      <p data-testid="tally">
         Wins: {{ winTally[0] }} <span class="super">|</span> {{ winTally[1] }}
       </p>
       <button @click="handleClick" type="button">
